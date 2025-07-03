@@ -1,0 +1,19 @@
+[folder nano emqx] 
+server{
+	listen 80;
+	server_name emqx.projectenginesecurity.my.id;
+
+	location / {
+		proxy_pass http://localhost:18083;
+	}
+}
+
+[Nano nodered]
+server{
+	listen 80;
+	server_name nodered.projectenginesecurity.my.id;
+	
+	location / {
+		proxy_pass http://localhost:1880;
+	}
+}
