@@ -1,0 +1,26 @@
+[Nano emqx]
+
+server{
+        server_name emqx.projectenginesecurity.my.id;
+
+        location / {
+                proxy_pass http://localhost:18083;
+        }
+
+    listen 443 SSL; # managed by Certbot
+    SSL_certificate /etc/letsencrypt/live/emqx.projectenginesecurity.my.id/fullchain.pem; # managed by Certbot
+    SSL_certificate_key /etc/letsencrypt/live/emqx.projectenginesecurity.my.id/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-SSL-nginx.conf; # managed by Certbot
+    SSL_dhparam /etc/letsencrypt/SSL-dhparams.pem; # managed by Certbot
+
+}
+server{
+    if ($host = emqx.projectenginesecurity.my.id) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+        listen 80;
+        server_name emqx.projectenginesecurity.my.id;
+    return 404; # managed by Certbot
+
+}
